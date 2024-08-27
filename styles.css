@@ -1,0 +1,10 @@
+#dessert {
+    position: absolute;
+    background-image: url("cartoon-landscape-arid-desolated-nature.jpg");
+    height: 200px;
+    width: 100%;
+}
+
+.dino {
+    background-image: url("dino-run1.png");
+}
