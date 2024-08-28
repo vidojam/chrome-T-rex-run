@@ -7,7 +7,6 @@
     }
 }
 
-
 #desert {
     position: absolute;
     background-image: url("track.png");
@@ -20,12 +19,12 @@
 .dino {
     background-image: url("dino-run1.png");
     height: 90px;
-    width: 90px ;
+    width: 90px;
     position: absolute;
     bottom: 0;
 }
 
-.obstacle  {
+.obstacle {
     background-image: url("cactus1.png");
     height: 60px;
     width: 60px;
