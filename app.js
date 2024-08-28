@@ -4,6 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let gravity = 0.9;
     let isJumping = false;
   
+    function control(e) {
+      if (e.code === 'Space') {
+        if (!isJumping) {
+          console.log('jump');
+          jump();
+        }
+      }
+    }
+  
     function jump() {
       isJumping = true;
       let count = 0;
@@ -15,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (position === 0) {
               clearInterval(downTimerId);
               isJumping = false;
-            } 
+            }
             position -= 5;
             position = position * gravity;
             dino.style.bottom = position + 'px';
@@ -30,14 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 20);
     }
   
-    function control(e) {
-      if (e.code === 'Space') {
-        if (!isJumping) {
-          console.log('jump');
-          jump();
-        }
-      }
+    function generateObstacles() {
+      let obstaclePosition = 1000;
+      const obstacle = document.createElement('div');
+      obstacle.classList.add('obstacle');
+      grid.appendChild(obstacle);
+      obstacle.style.left = obstaclePosition + 'px';
+  
+      let timerId = setInterval(() => {
+        obstaclePosition -= 10;
+        obstacle.style.left = obstaclePosition + 'px';
+      }, 20);
     }
+  
+    generateObstacles();
   
     document.addEventListener('keydown', control);
   });
