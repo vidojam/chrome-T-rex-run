@@ -1,10 +1,33 @@
-#dessert {
+@keyframes slideright {
+    0% {
+        background-position: 7000%;
+    }
+    100% {
+        background-position: 0;
+    }
+}
+
+
+#desert {
     position: absolute;
-    background-image: url("cartoon-landscape-arid-desolated-nature.jpg");
+    background-image: url("track.png");
     height: 200px;
     width: 100%;
+    animation: slideright 600s infinite linear;
 }
 
 .dino {
     background-image: url("dino-run1.png");
+    height: 90px;
+    width: 90px ;
+    position: absolute;
+    bottom: 0;
+}
+
+.obstacle  {
+    background-image: url("cactus1.png");
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    bottom: 0;
 }
