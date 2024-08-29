@@ -5,26 +5,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let gravity = 0.9;
     let isJumping = false;
     let isGameOver = false;
-    let position = 0; // Declare the position variable outside of the jump function
+    let position = 0;
 
     function control(e) {
         if (e.code === 'Space' && !isJumping && !isGameOver) {
             console.log('jump');
             jump();
         }
+        if (e.code === 'Enter' && isGameOver) {
+            console.log('restart');
+           
+            resetGame();
+            
+        }
     }
 
     function jump() {
         isJumping = true;
         let count = 0;
-        let jumpUpTimerId = setInterval(() => {
+
+        const jumpUpTimerId = setInterval(() => {
             if (count === 15) {
                 clearInterval(jumpUpTimerId);
-                let jumpDownTimerId = setInterval(() => {
+                const jumpDownTimerId = setInterval(() => {
                     if (position <= 0) {
                         clearInterval(jumpDownTimerId);
                         isJumping = false;
-                        position = 0; // Ensure dino ends up at the ground
+                        position = 0;
                         dino.style.bottom = position + 'px';
                     } else {
                         position -= 5;
@@ -48,15 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let obstaclePosition = 1000;
         const obstacle = document.createElement('div');
+
         obstacle.classList.add('obstacle');
         grid.appendChild(obstacle);
         obstacle.style.left = obstaclePosition + 'px';
 
-        let obstacleTimerId = setInterval(() => {
+        dino.classList.add('dino');
+        grid.appendChild(dino);
+        dino.style.left = position + 'px';
+        
+        jump();
+
+        const obstacleTimerId = setInterval(() => {
             if (obstaclePosition > 0 && obstaclePosition < 60 && position < 60) {
                 clearInterval(obstacleTimerId);
-                alertElement.innerHTML = 'Game Over';
                 isGameOver = true;
+                if (alertElement) {
+                    alertElement.innerHTML = 'Game Over. Press Enter to Restart';
+                    
+                } else {
+                    console.log('Game Over. Press Enter to Restart'); // Fallback
+                }
                 // Remove all children
                 while (grid.firstChild) {
                     grid.removeChild(grid.lastChild);
@@ -71,6 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(generateObstacles, 4000);
     }
 
-    generateObstacles();
+    function resetGame() {
+        // Reset game state
+        isJumping = true;
+        isGameOver = false;
+        position = 0;
+        dino.style.bottom = position + 'px';
+        dino.style.backgroundImage = 'url("dino-run1.png")'; // Ensure the background image is set
+        
+        
+        alertElement.innerHTML = ''; // Clear the game over message
+
+        // Clear existing obstacles
+        // while (grid.firstChild) {
+        //     grid.removeChild(grid.lastChild);
+        // }
+
+        // Restart obstacle generation
+        generateObstacles();
+    }
+
     document.addEventListener('keydown', control);
+    generateObstacles();
+
 });
+
